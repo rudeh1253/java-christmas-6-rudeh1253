@@ -6,7 +6,6 @@ import christmas.domain.config.EventBadge;
 import christmas.domain.config.Menu;
 import christmas.domain.config.benefit.BenefitConfig;
 
-import java.util.List;
 import java.util.Map;
 
 public class Result {
