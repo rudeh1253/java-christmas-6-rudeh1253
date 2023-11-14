@@ -45,9 +45,12 @@ public class Discount {
     }
 
     public int getDayOfWeekDiscount() {
-        return this.order
-                .filterByMenuClassification(DiscountConfig.whatToExtract(this.visitDate.isWeekend()))
-                .getNumOfMenus()
+        Order extracted =
+                this.order.filterByMenuClassification(DiscountConfig.whatToExtract(this.visitDate.isWeekend()));
+        if (extracted == null) {
+            return 0;
+        }
+        return extracted.getNumOfMenus()
                 * DiscountConfig.SPECIAL_DISCOUNT_PER_MENU;
     }
 
