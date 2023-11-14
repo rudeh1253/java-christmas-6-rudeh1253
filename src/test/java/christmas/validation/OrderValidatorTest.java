@@ -38,4 +38,11 @@ class OrderValidatorTest {
                 .isThrownBy(() -> validator.validateOrderQuantity(quantity))
                 .withMessage(ErrorMessageFormatter.get(ErrorMessage.INVALID_MENU_INPUT.get()));
     }
+
+    @DisplayName("주문 개수가 1 이상일 경우 예외가 발생하지 않음")
+    @ValueSource(ints = { 1, 2, 13, Integer.MAX_VALUE })
+    @ParameterizedTest
+    void validateOrderQuantity_NoExceptionIsThrown_EqualOrMoreThanOne(int quantity) {
+        assertThatNoException().isThrownBy(() -> validator.validateOrderQuantity(quantity));
+    }
 }
