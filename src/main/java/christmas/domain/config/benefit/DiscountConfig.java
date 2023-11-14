@@ -1,4 +1,6 @@
-package christmas.domain.config;
+package christmas.domain.config.benefit;
+
+import christmas.domain.config.MenuClassification;
 
 public class DiscountConfig {
     public static final int STANDARD_FOR_GIVEAWAY = 120000;

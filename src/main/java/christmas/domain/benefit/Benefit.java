@@ -1,6 +1,6 @@
-package christmas.domain;
+package christmas.domain.benefit;
 
-import christmas.domain.config.BenefitConfig;
+import christmas.domain.config.benefit.BenefitConfig;
 
 public class Benefit {
     private final Discount discount;

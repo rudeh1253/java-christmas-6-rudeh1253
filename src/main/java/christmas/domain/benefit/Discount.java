@@ -1,6 +1,8 @@
-package christmas.domain;
+package christmas.domain.benefit;
 
-import christmas.domain.config.DiscountConfig;
+import christmas.domain.Order;
+import christmas.domain.VisitDate;
+import christmas.domain.config.benefit.DiscountConfig;
 
 public class Discount {
     private final VisitDate visitDate;
