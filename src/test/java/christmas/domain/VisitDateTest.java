@@ -30,7 +30,7 @@ class VisitDateTest {
     @CsvSource({ "1,1000", "2,1100", "25,3400", "26,0", "31,0" })
     @ParameterizedTest
     void calculateDiscountByDate(int day, int expected) {
-        assertThat(new VisitDate(day).calculateDiscountByDate()).isEqualTo(expected);
+        assertThat(new VisitDate(day).calculateDDayDiscount()).isEqualTo(expected);
     }
 
     @DisplayName("일요일일 경우 특별 할인이 적용됨")

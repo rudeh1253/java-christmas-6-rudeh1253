@@ -20,7 +20,7 @@ public class VisitDate {
         validator.validateDate(day);
     }
 
-    public int calculateDiscountByDate() {
+    public int calculateDDayDiscount() {
         int day = this.date.getDayOfMonth();
         if (day > VisitDateConfig.DAY_OF_CHRISTMAS) {
             return 0;
