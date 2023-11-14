@@ -1,6 +1,10 @@
 package christmas.validation;
 
+import christmas.domain.config.MenuConfig;
 import christmas.error.ErrorMessage;
+import christmas.error.ErrorMessageFormatter;
+
+import java.util.regex.Pattern;
 
 /**
  * 사용자의 입력을 검증하기 위한 Validator.
@@ -18,7 +22,7 @@ public class InputValidator {
 
     public void validateDate(String date) {
         if (!isInteger(date)) {
-            throw new IllegalArgumentException(ErrorMessage.INVALID_DATE.get());
+            throw new IllegalArgumentException(ErrorMessageFormatter.get(ErrorMessage.INVALID_DATE.get()));
         }
     }
 
@@ -28,6 +32,12 @@ public class InputValidator {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    public void validateEachMenu(String eachMenu) {
+        if (!Pattern.matches(MenuConfig.MENU_INPUT_REGEX, eachMenu)) {
+            throw new IllegalArgumentException(ErrorMessageFormatter.get(ErrorMessage.INVALID_MENU_INPUT.get()));
         }
     }
 }
