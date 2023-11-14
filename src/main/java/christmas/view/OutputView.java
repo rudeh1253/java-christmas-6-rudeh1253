@@ -37,7 +37,7 @@ public class OutputView {
         return SINGLETON;
     }
 
-    private void printWithLine(String message) {
+    public void printWithLine(String message) {
         System.out.println(message);
     }
 
@@ -91,18 +91,18 @@ public class OutputView {
         return NONE.get();
     }
 
-    public void printBenefitHistory(Benefit benefit, VisitDate visitDate) {
+    public void printBenefitHistory(int totalBenefitAmount, Discount discount,
+                                    boolean qualifiedForGiveaway, VisitDate visitDate) {
         printWithLine(BENEFIT_LIST.get());
-        if (benefit.getFullDiscount() == 0) {
+        if (totalBenefitAmount == 0) {
             printWithLine(NONE.get());
             printBlankLine();
             return;
         }
-        Discount discount = benefit.getDiscount();
         printWithoutLine(getDDayDiscountMessage(discount.getDDayDiscount()));
         printWithoutLine(getDayOfWeekDiscount(visitDate.isWeekend(), discount.getDayOfWeekDiscount()));
         printWithoutLine(formatter.formatSingleBenefitHistory(SPECIAL_DISCOUNT.get(), discount.getSpecialDiscount()));
-        int giveawayPrice = getGiveawayPrice(benefit.isQualifiedForGiveaway());
+        int giveawayPrice = getGiveawayPrice(qualifiedForGiveaway);
         printWithoutLine(formatter.formatSingleBenefitHistory(GIVEAWAY_EVENT.get(), giveawayPrice));
         printBlankLine();
     }

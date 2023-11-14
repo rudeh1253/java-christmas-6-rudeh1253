@@ -38,11 +38,8 @@ public class Result {
         return this.order.calculateOrderAmount();
     }
 
-    public Menu getGiveaway() {
-        if (this.benefit.isQualifiedForGiveaway()) {
-            return BenefitConfig.GIVEAWAY_ITEM;
-        }
-        return null;
+    public boolean isQualifiedForGiveaway() {
+        return this.benefit.isQualifiedForGiveaway();
     }
 
     public Discount getDiscount() {
