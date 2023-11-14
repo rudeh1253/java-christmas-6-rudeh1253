@@ -5,4 +5,6 @@ public class MenuConfig {
     public static final String MENU_DELIMITER = ",";
     public static final String MENU_AND_NUMBER_DELIMITER = "-";
     public static final int MIN_ORDER_QUANTITY_OF_ONE_MENU = 1;
+    public static final MenuClassification NOT_ALLOWED_SINGLE_CLASSIFICATION_ORDER = MenuClassification.BEVERAGE;
+    public static final int TOTAL_ORDER_QUANTITY_LIMIT = 20;
 }

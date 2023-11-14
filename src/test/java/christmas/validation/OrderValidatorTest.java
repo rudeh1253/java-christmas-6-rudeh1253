@@ -2,11 +2,17 @@ package christmas.validation;
 
 import static org.assertj.core.api.Assertions.*;
 
+import christmas.domain.config.MenuClassification;
 import christmas.error.ErrorMessage;
 import christmas.error.ErrorMessageFormatter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 class OrderValidatorTest {
     OrderValidator validator = OrderValidator.getInstance();
@@ -44,5 +50,65 @@ class OrderValidatorTest {
     @ParameterizedTest
     void validateOrderQuantity_NoExceptionIsThrown_EqualOrMoreThanOne(int quantity) {
         assertThatNoException().isThrownBy(() -> validator.validateOrderQuantity(quantity));
+    }
+
+    static Stream<Map<String, Integer>> validateTotalQuantity_Over20InTotal() {
+        return Stream.of(
+                Map.of("양송이수프", 21),
+                Map.of("샴페인", 3, "레드와인", 7, "시저샐러드", 11)
+        );
+    }
+
+    static Stream<List<MenuClassification>> validateNotWithOnlyNotAllowedMenu_OnlyBeverages() {
+        return Stream.of(
+                List.of(MenuClassification.BEVERAGE),
+                List.of(MenuClassification.BEVERAGE, MenuClassification.BEVERAGE)
+        );
+    }
+
+    @DisplayName("음료만 주문할 경우 예외 발생 - IllegalArgumentException")
+    @MethodSource
+    @ParameterizedTest
+    void validateNotWithOnlyNotAllowedMenu_OnlyBeverages(List<MenuClassification> classifications) {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> validator.validateNotWithOnlyNotAllowedMenu(classifications));
+    }
+
+    static Stream<List<MenuClassification>> validateNotWithOnlyNotAllowedMenu_NotOnlyBeverages() {
+        return Stream.of(
+                List.of(MenuClassification.BEVERAGE, MenuClassification.BEVERAGE, MenuClassification.MAIN),
+                List.of(MenuClassification.BEVERAGE, MenuClassification.APPETIZER),
+                List.of(MenuClassification.DESSERT)
+        );
+    }
+
+    @DisplayName("음료만 주문하지 않을 경우 예외가 발생하지 않음")
+    @MethodSource
+    @ParameterizedTest
+    void validateNotWithOnlyNotAllowedMenu_NotOnlyBeverages(List<MenuClassification> classifications) {
+        assertThatNoException().isThrownBy(() -> validator.validateNotWithOnlyNotAllowedMenu(classifications));
+    }
+
+    @DisplayName("총 주문 개수가 20 초과일 경우 예외 발생 - IllegalArgumentException")
+    @MethodSource
+    @ParameterizedTest
+    void validateTotalQuantity_Over20InTotal(Map<String, Integer> orderContent) {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> validator.validateTotalQuantity(orderContent));
+    }
+
+    static Stream<Map<String, Integer>> validateTotalQuantity_LessOrEqualTo20() {
+        return Stream.of(
+                Map.of("시저샐러드", 1),
+                Map.of("시저샐러드", 10, "양송이수프", 10),
+                Map.of("해산물파스타", 20)
+        );
+    }
+
+    @DisplayName("총 주문 개수가 20 이하일 경우 예외가 발생하지 않음")
+    @MethodSource
+    @ParameterizedTest
+    void validateTotalQuantity_LessOrEqualTo20(Map<String, Integer> orderContent) {
+        assertThatNoException().isThrownBy(() -> validator.validateTotalQuantity(orderContent));
     }
 }
