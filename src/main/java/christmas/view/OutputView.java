@@ -3,6 +3,11 @@ package christmas.view;
 import static christmas.view.config.OutputConfig.*;
 
 public class OutputView {
+    private static final OutputView SINGLETON = new OutputView();
+
+    public static OutputView getInstance() {
+        return SINGLETON;
+    }
 
     private void printWithLine(String msg) {
         System.out.println(msg);
