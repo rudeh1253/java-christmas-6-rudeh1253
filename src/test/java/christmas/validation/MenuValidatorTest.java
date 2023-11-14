@@ -29,4 +29,13 @@ class MenuValidatorTest {
     void validateValidityOfMenus_NoExceptionIsThrown(String menu) {
         assertThatNoException().isThrownBy(() -> validator.validateValidityOfMenus(menu));
     }
+
+    @DisplayName("주문 개수가 1 미만일 경우 예외 발생 - IllegalArgumentExcpetion")
+    @ValueSource(ints = { 0, -1, Integer.MIN_VALUE })
+    @ParameterizedTest
+    void validateOrderQuantity_ThrowsIllegalArgumentException_LessThanOne(int quantity) {
+        assertThatExceptionOfType(IllegalArgumentException.class)
+                .isThrownBy(() -> validator.validateOrderQuantity(quantity))
+                .withMessage(ErrorMessageFormatter.get(ErrorMessage.INVALID_MENU_INPUT.get()));
+    }
 }
