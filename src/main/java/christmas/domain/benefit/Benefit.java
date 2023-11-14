@@ -22,4 +22,8 @@ public class Benefit {
     public Discount getDiscount() {
         return this.discount;
     }
+
+    public boolean isQualifiedForGiveaway() {
+        return this.numOfGiveaway > 0;
+    }
 }

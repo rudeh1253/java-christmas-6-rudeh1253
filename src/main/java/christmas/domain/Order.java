@@ -73,7 +73,7 @@ public class Order {
         }
     }
 
-    public Map<String, Integer> getOrders() {
+    public Map<String, Integer> getOrder() {
         return this.orders
                 .stream()
                 .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
