@@ -2,7 +2,9 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import christmas.domain.config.VisitDateConfig;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -29,5 +31,25 @@ class VisitDateTest {
     @ParameterizedTest
     void calculateDiscountByDate(int day, int expected) {
         assertThat(new VisitDate(day).calculateDiscountByDate()).isEqualTo(expected);
+    }
+
+    @DisplayName("일요일일 경우 특별 할인이 적용됨")
+    @ValueSource(ints = { 3, 10, 17, 24, 31 })
+    @ParameterizedTest
+    void isDayOfSpecialDiscount_CaseOfSunday(int day) {
+        assertThat(new VisitDate(day).isDayOfSpecialDiscount()).isTrue();
+    }
+
+    @DisplayName("크리스마스일 경우 특별 할인이 적용됨")
+    @Test
+    void isDayOfSpecialDiscount_CaseOfChristmas() {
+        assertThat(new VisitDate(VisitDateConfig.DAY_OF_CHRISTMAS).isDayOfSpecialDiscount()).isTrue();
+    }
+
+    @DisplayName("일요일도 아니고 크리스마스도 아닐 경우 특별 할인이 적용되지 않음")
+    @ValueSource(ints = { 1, 2, 4, 8, 9, 23, 26, 27, 28, 29, 30 })
+    @ParameterizedTest
+    void isDayOfSpecialDiscount_normalDays(int day) {
+        assertThat(new VisitDate(day).isDayOfSpecialDiscount()).isFalse();
     }
 }
