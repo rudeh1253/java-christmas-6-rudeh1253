@@ -22,14 +22,14 @@ public enum EventBadge {
         return this.price;
     }
 
-    public static EventBadge getBadgeByOrderAmount(int orderAmount) {
-        if (orderAmount < STAR.price) {
+    public static EventBadge getBadgeByOrderAmount(int benefitAmount) {
+        if (benefitAmount < STAR.price) {
             return NONE;
         }
-        if (orderAmount < TREE.price) {
+        if (benefitAmount < TREE.price) {
             return STAR;
         }
-        if (orderAmount < SANTA.price) {
+        if (benefitAmount < SANTA.price) {
             return TREE;
         }
         return SANTA;
