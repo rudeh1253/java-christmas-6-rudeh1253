@@ -1,7 +1,7 @@
 package christmas.domain.config;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum MenuList {
     BUTTON_MUSHROOM_SOUP("양송이수프", 6000, MenuClassification.APPETIZER),
@@ -17,7 +17,13 @@ public enum MenuList {
     RED_WINE("레드와인", 60000, MenuClassification.BEVERAGE),
     CHAMPAGNE("샴페인", 25000, MenuClassification.BEVERAGE);
 
-    private static Set<String> nameSet = null;
+    private static final Map<String, MenuList> NAME_MENU_DICT = new HashMap<>();
+
+    static {
+        for (MenuList menu : MenuList.values()) {
+            NAME_MENU_DICT.put(menu.name, menu);
+        }
+    }
 
     private final String name;
     private final int price;
@@ -42,16 +48,6 @@ public enum MenuList {
     }
 
     public static synchronized boolean containsGivenName(String name) {
-        if (nameSet == null) {
-            nameSet = new HashSet<>();
-            addNamesIntoSet();
-        }
-        return nameSet.contains(name);
-    }
-
-    private static void addNamesIntoSet() {
-        for (MenuList menu : MenuList.values()) {
-            nameSet.add(menu.getName());
-        }
+        return NAME_MENU_DICT.containsKey(name);
     }
 }
