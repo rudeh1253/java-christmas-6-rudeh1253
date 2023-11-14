@@ -18,4 +18,8 @@ public class Benefit {
         int priceOfGiveaway = BenefitConfig.GIVEAWAY_ITEM.getPrice() * numOfGiveaway;
         return dDayDiscount + dayOfWeekDiscount + specialDiscount + priceOfGiveaway;
     }
+
+    public Discount getDiscount() {
+        return this.discount;
+    }
 }
