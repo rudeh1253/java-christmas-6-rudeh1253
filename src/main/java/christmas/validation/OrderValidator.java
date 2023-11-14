@@ -5,13 +5,13 @@ import christmas.domain.config.MenuList;
 import christmas.error.ErrorMessage;
 import christmas.error.ErrorMessageFormatter;
 
-public class MenuValidator {
-    private static final MenuValidator SINGLETON = new MenuValidator();
+public class OrderValidator {
+    private static final OrderValidator SINGLETON = new OrderValidator();
 
-    private MenuValidator() {
+    private OrderValidator() {
     }
 
-    public static MenuValidator getInstance() {
+    public static OrderValidator getInstance() {
         return SINGLETON;
     }
 

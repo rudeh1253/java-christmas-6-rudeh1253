@@ -8,13 +8,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class MenuValidatorTest {
-    MenuValidator validator = MenuValidator.getInstance();
+class OrderValidatorTest {
+    OrderValidator validator = OrderValidator.getInstance();
 
     @DisplayName("Menu enum에 정의되지 않은 메뉴를 주문하려 할 경우 예외 발생 - IllegalArgumentException")
     @ValueSource(strings = { "", "커피", "우유", "135" })
     @ParameterizedTest
-    void validateValidityOfMenus_ThrowsIllegalArgumentException_MenuNotInMenuEnum(String menu) {
+    void validateValidityOfMenus_ThrowsIllegalArgumentException_OrderNotInMenuEnum(String menu) {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> validator.validateValidityOfMenus(menu))
                 .withMessage(ErrorMessageFormatter.get(ErrorMessage.INVALID_MENU_INPUT.get()));
