@@ -12,7 +12,7 @@ public class Order {
     private final Set<SingleOrder> orders;
     private final OrderValidator validator;
 
-    private record SingleOrder(String menuName, int quantity, MenuClassification menuClassification) {
+    private record SingleOrder(MenuList menu, int quantity, MenuClassification menuClassification) {
     }
 
     public Order(Map<String, Integer> orders) {
@@ -53,7 +53,9 @@ public class Order {
     private void init(Map<String, Integer> orders) {
         for (String menuName : orders.keySet()) {
             MenuClassification classification = MenuList.getMenuByName(menuName).getClassification();
-            this.orders.add(new SingleOrder(menuName, orders.get(menuName), classification));
+            this.orders.add(
+                    new SingleOrder(MenuList.getMenuByName(menuName), orders.get(menuName), classification)
+            );
         }
     }
 
