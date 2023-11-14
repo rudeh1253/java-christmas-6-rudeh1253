@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Result {
+    private final VisitDate visitDate;
     private final Order order;
     private final Benefit benefit;
 
     public Result(VisitDate visitDate, Order order) {
+        this.visitDate = visitDate;
         this.order = order;
         this.benefit = new Benefit(Discount.generateInstance(visitDate, order), getNumOfGiveaway(order));
     }
@@ -23,6 +25,10 @@ public class Result {
             return 1;
         }
         return 0;
+    }
+
+    public VisitDate getVisitDate() {
+        return this.visitDate;
     }
 
     public Map<String, Integer> getOrders() {
