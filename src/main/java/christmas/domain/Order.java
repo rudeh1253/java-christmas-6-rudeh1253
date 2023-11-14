@@ -102,12 +102,8 @@ public class Order {
         return this.orders.toString();
     }
 
-    public Order getDessertOrder() {
-        return filter(MenuClassification.DESSERT);
-    }
-
-    public Order getMainDishOrder() {
-        return filter(MenuClassification.MAIN);
+    public Order filterByMenuClassification(MenuClassification standard) {
+        return filter(standard);
     }
 
     private Order filter(MenuClassification standard) {

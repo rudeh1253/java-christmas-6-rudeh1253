@@ -2,6 +2,7 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import christmas.domain.config.MenuClassification;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -146,7 +147,7 @@ class OrderTest {
     @MethodSource
     @ParameterizedTest
     void getDessertOrder(List<Order> toCompare) {
-        Order extracted = toCompare.get(0).getDessertOrder();
+        Order extracted = toCompare.get(0).filterByMenuClassification(MenuClassification.DESSERT);
         assertThat(extracted).isEqualTo(toCompare.get(1));
     }
 
@@ -160,7 +161,7 @@ class OrderTest {
     @MethodSource
     @ParameterizedTest
     void getDessertOrder_returnNull(Order order) {
-        assertThat(order.getDessertOrder()).isNull();
+        assertThat(order.filterByMenuClassification(MenuClassification.DESSERT)).isNull();
     }
 
     static Stream<List<Order>> getMainDishOrder() {
@@ -187,7 +188,7 @@ class OrderTest {
     @MethodSource
     @ParameterizedTest
     void getMainDishOrder(List<Order> toCompare) {
-        Order extracted = toCompare.get(0).getMainDishOrder();
+        Order extracted = toCompare.get(0).filterByMenuClassification(MenuClassification.MAIN);
         assertThat(extracted).isEqualTo(toCompare.get(1));
     }
 
@@ -201,7 +202,7 @@ class OrderTest {
     @MethodSource
     @ParameterizedTest
     void getMainDishOrder_returnNull(Order order) {
-        assertThat(order.getMainDishOrder()).isNull();
+        assertThat(order.filterByMenuClassification(MenuClassification.MAIN)).isNull();
     }
 
 
