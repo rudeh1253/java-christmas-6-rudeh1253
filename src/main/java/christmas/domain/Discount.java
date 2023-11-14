@@ -5,12 +5,10 @@ import christmas.domain.config.DiscountConfig;
 public class Discount {
     private final VisitDate visitDate;
     private final Order order;
-    private final int orderAmountBeforeDiscount;
 
     protected Discount(VisitDate visitDate, Order order) {
         this.visitDate = visitDate;
         this.order = order;
-        this.orderAmountBeforeDiscount = this.order.calculateOrderAmount();
     }
 
     public static Discount generateInstance(VisitDate visitDate, Order order) {
@@ -25,10 +23,32 @@ public class Discount {
         BlankDiscount() {
             super(null, null);
         }
+
+        @Override
+        public int getDDayDiscount() {
+            return 0;
+        }
+
+        @Override
+        public int getDayOfWeekDiscount() {
+            return 0;
+        }
+
+        @Override
+        public int getSpecialDiscount() {
+            return 0;
+        }
     }
 
     public int getDDayDiscount() {
         return this.visitDate.calculateDDayDiscount();
+    }
+
+    public int getDayOfWeekDiscount() {
+        return this.order
+                .filterByMenuClassification(DiscountConfig.whatToExtract(this.visitDate.isWeekend()))
+                .getNumOfMenus()
+                * DiscountConfig.SPECIAL_DISCOUNT_PER_MENU;
     }
 
     public int getSpecialDiscount() {
