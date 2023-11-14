@@ -47,7 +47,7 @@ public enum MenuList {
         return this.classification;
     }
 
-    public static synchronized boolean containsGivenName(String name) {
+    public static boolean containsGivenName(String name) {
         return NAME_MENU_DICT.containsKey(name);
     }
 }
