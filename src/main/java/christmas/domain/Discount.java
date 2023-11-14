@@ -15,9 +15,16 @@ public class Discount {
 
     public static Discount generateInstance(VisitDate visitDate, Order order) {
         if (order.calculateOrderAmount() < DiscountConfig.MIN_ORDER_AMOUNT_FOR_DISCOUNT) {
-            return BlankDiscount.generateInstance();
+            return new BlankDiscount();
         }
         return new Discount(visitDate, order);
+    }
+
+    private static class BlankDiscount extends Discount {
+
+        BlankDiscount() {
+            super(null, null);
+        }
     }
 
     public int getDDayDiscount() {
