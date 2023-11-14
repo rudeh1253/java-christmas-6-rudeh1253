@@ -79,7 +79,7 @@ class InputValidatorTest {
     @DisplayName("메뉴가 정규표현식 /^[ㄱ-ㅎ가-힣]+-[0-9]+$/를 따르지 않을 경우 예외 발생 - IllegalArgumentException")
     @ValueSource(
             strings = { "a-123", "-123", "시저샐러드-", "포테이토-!@", "포테이토 - 135", "포테이토 -135",
-            "포테이토- 135" }
+            "포테이토- 135", "티몬-스테이크-2" }
     )
     @ParameterizedTest
     void validateEachMenu_ThrowsIllegalArgumentException_NotMatchRegex(String eachMenuInput) {
