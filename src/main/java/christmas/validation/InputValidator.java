@@ -4,6 +4,9 @@ import christmas.domain.config.MenuConfig;
 import christmas.error.ErrorMessage;
 import christmas.error.ErrorMessageFormatter;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -32,6 +35,13 @@ public class InputValidator {
             return true;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    public void validateDuplicateOfMenuInput(String[] menus) {
+        Set<String> menuSet = new HashSet<>(List.of(menus));
+        if (menuSet.size() != menus.length) {
+            throw new IllegalArgumentException(ErrorMessageFormatter.get(ErrorMessage.INVALID_MENU_INPUT.get()));
         }
     }
 
