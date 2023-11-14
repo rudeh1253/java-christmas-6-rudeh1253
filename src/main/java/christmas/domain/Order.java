@@ -1,7 +1,7 @@
 package christmas.domain;
 
 import christmas.domain.config.MenuClassification;
-import christmas.domain.config.MenuList;
+import christmas.domain.config.Menu;
 import christmas.validation.OrderValidator;
 
 import java.util.HashSet;
@@ -12,7 +12,7 @@ public class Order {
     private final Set<SingleOrder> orders;
     private final OrderValidator validator;
 
-    private record SingleOrder(MenuList menu, int quantity, MenuClassification menuClassification) {
+    private record SingleOrder(Menu menu, int quantity, MenuClassification menuClassification) {
     }
 
     public Order(Map<String, Integer> orders) {
@@ -41,7 +41,7 @@ public class Order {
         this.validator.validateNotWithOnlyNotAllowedMenu(
                 orders.keySet()
                         .stream()
-                        .map(menuName -> MenuList.getMenuByName(menuName).getClassification())
+                        .map(menuName -> Menu.getMenuByName(menuName).getClassification())
                         .toList()
         );
     }
@@ -52,9 +52,9 @@ public class Order {
 
     private void init(Map<String, Integer> orders) {
         for (String menuName : orders.keySet()) {
-            MenuClassification classification = MenuList.getMenuByName(menuName).getClassification();
+            MenuClassification classification = Menu.getMenuByName(menuName).getClassification();
             this.orders.add(
-                    new SingleOrder(MenuList.getMenuByName(menuName), orders.get(menuName), classification)
+                    new SingleOrder(Menu.getMenuByName(menuName), orders.get(menuName), classification)
             );
         }
     }

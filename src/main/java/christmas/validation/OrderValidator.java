@@ -1,9 +1,8 @@
 package christmas.validation;
 
-import christmas.domain.Order;
 import christmas.domain.config.MenuClassification;
 import christmas.domain.config.MenuConfig;
-import christmas.domain.config.MenuList;
+import christmas.domain.config.Menu;
 import christmas.error.ErrorMessage;
 import christmas.error.ErrorMessageFormatter;
 
@@ -21,7 +20,7 @@ public class OrderValidator {
     }
 
     public void validateValidityOfMenus(String menuName) {
-        if (!MenuList.containsGivenName(menuName)) {
+        if (!Menu.containsGivenName(menuName)) {
             throw new IllegalArgumentException(ErrorMessageFormatter.get(ErrorMessage.INVALID_MENU_INPUT.get()));
         }
     }

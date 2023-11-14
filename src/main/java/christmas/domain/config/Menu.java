@@ -3,7 +3,7 @@ package christmas.domain.config;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum MenuList {
+public enum Menu {
     BUTTON_MUSHROOM_SOUP("양송이수프", 6000, MenuClassification.APPETIZER),
     TAPAS("타파스", 5500, MenuClassification.APPETIZER),
     CAESAR_SALAD("시저샐러드", 8000, MenuClassification.APPETIZER),
@@ -17,10 +17,10 @@ public enum MenuList {
     RED_WINE("레드와인", 60000, MenuClassification.BEVERAGE),
     CHAMPAGNE("샴페인", 25000, MenuClassification.BEVERAGE);
 
-    private static final Map<String, MenuList> NAME_MENU_DICT = new HashMap<>();
+    private static final Map<String, Menu> NAME_MENU_DICT = new HashMap<>();
 
     static {
-        for (MenuList menu : MenuList.values()) {
+        for (Menu menu : Menu.values()) {
             NAME_MENU_DICT.put(menu.name, menu);
         }
     }
@@ -29,7 +29,7 @@ public enum MenuList {
     private final int price;
     private final MenuClassification classification;
 
-    MenuList(String name, int price, MenuClassification menuClassification) {
+    Menu(String name, int price, MenuClassification menuClassification) {
         this.name = name;
         this.price = price;
         this.classification = menuClassification;
@@ -51,7 +51,7 @@ public enum MenuList {
         return NAME_MENU_DICT.containsKey(name);
     }
 
-    public static MenuList getMenuByName(String name) {
+    public static Menu getMenuByName(String name) {
         return NAME_MENU_DICT.get(name);
     }
 }
