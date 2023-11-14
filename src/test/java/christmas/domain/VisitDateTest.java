@@ -52,4 +52,18 @@ class VisitDateTest {
     void isDayOfSpecialDiscount_normalDays(int day) {
         assertThat(new VisitDate(day).isDayOfSpecialDiscount()).isFalse();
     }
+
+    @DisplayName("토요일, 일요일인 경우 true를 반환")
+    @ValueSource(ints = { 2, 3, 23, 24, 30, 31 })
+    @ParameterizedTest
+    void isWeekend_Weekend(int day) {
+        assertThat(new VisitDate(day).isWeekend()).isTrue();
+    }
+
+    @DisplayName("평일인 경우 false를 반환")
+    @ValueSource(ints = { 4, 5, 6, 7, 8, 25, 26, 27, 28, 29 })
+    @ParameterizedTest
+    void isWeekend_Weekday(int day) {
+        assertThat(new VisitDate(day).isWeekend()).isFalse();
+    }
 }

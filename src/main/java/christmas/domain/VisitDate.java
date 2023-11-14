@@ -41,6 +41,10 @@ public class VisitDate {
         return this.date.getDayOfMonth() == VisitDateConfig.DAY_OF_CHRISTMAS;
     }
 
+    public boolean isWeekend() {
+        return VisitDateConfig.WEEKENDS.contains(this.date.getDayOfWeek());
+    }
+
     @Override
     public String toString() {
         return this.date.toString();
