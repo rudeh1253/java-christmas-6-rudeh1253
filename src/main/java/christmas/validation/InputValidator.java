@@ -6,6 +6,7 @@ import christmas.error.ErrorMessageFormatter;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -38,9 +39,8 @@ public class InputValidator {
         }
     }
 
-    public void validateDuplicateOfMenuInput(String[] menus) {
-        Set<String> menuSet = new HashSet<>(List.of(menus));
-        if (menuSet.size() != menus.length) {
+    public void validateDuplicateOfMenuInput(Set<String> container, String toCheck) {
+        if (container.contains(toCheck)) {
             throw new IllegalArgumentException(ErrorMessageFormatter.get(ErrorMessage.INVALID_MENU_INPUT.get()));
         }
     }

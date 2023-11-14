@@ -4,6 +4,7 @@ import camp.nextstep.edu.missionutils.Console;
 import christmas.domain.config.MenuConfig;
 import christmas.validation.InputValidator;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,13 +28,15 @@ public class InputView {
         return Integer.parseInt(input);
     }
 
-    public Map<String, Integer> readMenu() {
+    public Map<String, Integer> readOrder() {
         outputView.askMenuAndNumber();
         String input = Console.readLine();
         String[] parsedInput = input.split(MenuConfig.MENU_DELIMITER);
         Map<String, Integer> orders = new HashMap<>();
         for (String each : parsedInput) {
+            inputValidator.validateEachMenu(each);
             String[] menuAndNumber = each.split(MenuConfig.MENU_AND_NUMBER_DELIMITER);
+            inputValidator.validateDuplicateOfMenuInput(orders.keySet(), menuAndNumber[0]);
             orders.put(menuAndNumber[0], Integer.parseInt(menuAndNumber[1]));
         }
         return orders;
