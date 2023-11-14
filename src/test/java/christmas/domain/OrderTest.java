@@ -122,7 +122,88 @@ class OrderTest {
         assertThat(new Order(testCase.testCase()).calculateOrderAmount()).isEqualTo(testCase.expected());
     }
 
-//    @DisplayName("디저트 메뉴만 얻어낸다.")
+    static Stream<List<Order>> getDessertOrder() {
+        List<Order> case1 = List.of(
+                new Order(Map.of(
+                        "양송이수프", 1, "초코케이크", 2
+                )),
+                new Order(Map.of(
+                        "초코케이크", 2
+                ))
+        );
+        List<Order> case2 = List.of(
+                new Order(Map.of(
+                        "티본스테이크", 2, "초코케이크", 4, "아이스크림", 5
+                )),
+                new Order(Map.of(
+                        "초코케이크", 4, "아이스크림", 5
+                ))
+        );
+        return Stream.of(case1, case2);
+    }
+
+    @DisplayName("디저트 메뉴만 담긴 Order 추출")
+    @MethodSource
+    @ParameterizedTest
+    void getDessertOrder(List<Order> toCompare) {
+        Order extracted = toCompare.get(0).getDessertOrder();
+        assertThat(extracted).isEqualTo(toCompare.get(1));
+    }
+
+    static Stream<Order> getDessertOrder_returnNull() {
+        return Stream.of(new Order(Map.of(
+                "양송이수프", 1
+        )));
+    }
+
+    @DisplayName("디저트가 담기지 않은 Order에서는 null 반환")
+    @MethodSource
+    @ParameterizedTest
+    void getDessertOrder_returnNull(Order order) {
+        assertThat(order.getDessertOrder()).isNull();
+    }
+
+    static Stream<List<Order>> getMainDishOrder() {
+        List<Order> case1 = List.of(
+                new Order(Map.of(
+                        "양송이수프", 1, "티본스테이크", 2
+                )),
+                new Order(Map.of(
+                        "티본스테이크", 2
+                ))
+        );
+        List<Order> case2 = List.of(
+                new Order(Map.of(
+                        "티본스테이크", 2, "초코케이크", 4, "아이스크림", 5, "해산물파스타", 1
+                )),
+                new Order(Map.of(
+                        "티본스테이크", 2, "해산물파스타", 1
+                ))
+        );
+        return Stream.of(case1, case2);
+    }
+
+    @DisplayName("메인 메뉴만 담긴 Order 추출")
+    @MethodSource
+    @ParameterizedTest
+    void getMainDishOrder(List<Order> toCompare) {
+        Order extracted = toCompare.get(0).getMainDishOrder();
+        assertThat(extracted).isEqualTo(toCompare.get(1));
+    }
+
+    static Stream<Order> getMainDishOrder_returnNull() {
+        return Stream.of(new Order(Map.of(
+                "양송이수프", 1
+        )));
+    }
+
+    @DisplayName("메인 메뉴가 담기지 않은 Order에서는 null 반환")
+    @MethodSource
+    @ParameterizedTest
+    void getMainDishOrder_returnNull(Order order) {
+        assertThat(order.getMainDishOrder()).isNull();
+    }
+
 
     static Stream<List<Order>> equals_NotEqual() {
         List<Order> case1 = List.of(

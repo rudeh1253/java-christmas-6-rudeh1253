@@ -103,16 +103,20 @@ public class Order {
     }
 
     public Order getDessertOrder() {
-        Map<String, Integer> extractedOrderContent = this.orders.stream()
-                .filter(order -> order.menu().getClassification() == MenuClassification.DESSERT)
-                .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
-        return new Order(extractedOrderContent);
+        return filter(MenuClassification.DESSERT);
     }
 
     public Order getMainDishOrder() {
+        return filter(MenuClassification.MAIN);
+    }
+
+    private Order filter(MenuClassification standard) {
         Map<String, Integer> extractedOrderContent = this.orders.stream()
-                .filter(order -> order.menu().getClassification() == MenuClassification.MAIN)
+                .filter(order -> order.menu().getClassification() == standard)
                 .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
+        if (extractedOrderContent.isEmpty()) {
+            return null;
+        }
         return new Order(extractedOrderContent);
     }
 }
