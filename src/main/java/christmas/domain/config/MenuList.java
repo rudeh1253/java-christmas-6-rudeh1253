@@ -1,11 +1,9 @@
 package christmas.domain.config;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-public enum Menu {
+public enum MenuList {
     BUTTON_MUSHROOM_SOUP("양송이수프", 6000, MenuClassification.APPETIZER),
     TAPAS("타파스", 5500, MenuClassification.APPETIZER),
     CAESAR_SALAD("시저샐러드", 8000, MenuClassification.APPETIZER),
@@ -25,7 +23,7 @@ public enum Menu {
     private final int price;
     private final MenuClassification classification;
 
-    Menu(String name, int price, MenuClassification menuClassification) {
+    MenuList(String name, int price, MenuClassification menuClassification) {
         this.name = name;
         this.price = price;
         this.classification = menuClassification;
@@ -52,7 +50,7 @@ public enum Menu {
     }
 
     private static void addNamesIntoSet() {
-        for (Menu menu : Menu.values()) {
+        for (MenuList menu : MenuList.values()) {
             nameSet.add(menu.getName());
         }
     }

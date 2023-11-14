@@ -1,10 +1,8 @@
 package christmas.validation;
 
-import christmas.domain.config.Menu;
+import christmas.domain.config.MenuList;
 import christmas.error.ErrorMessage;
 import christmas.error.ErrorMessageFormatter;
-
-import java.util.Set;
 
 public class MenuValidator {
     private static final MenuValidator SINGLETON = new MenuValidator();
@@ -17,7 +15,7 @@ public class MenuValidator {
     }
 
     public void validateValidityOfMenus(String menuName) {
-        if (!Menu.containsGivenName(menuName)) {
+        if (!MenuList.containsGivenName(menuName)) {
             throw new IllegalArgumentException(ErrorMessageFormatter.get(ErrorMessage.INVALID_MENU_INPUT.get()));
         }
     }
