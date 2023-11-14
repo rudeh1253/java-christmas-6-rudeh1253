@@ -83,20 +83,6 @@ public class Order {
                 .sum();
     }
 
-    public Order getDessertOrder() {
-        Map<String, Integer> extractedOrderContent = this.orders.stream()
-                .filter(order -> order.menu().getClassification() == MenuClassification.DESSERT)
-                .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
-        return new Order(extractedOrderContent);
-    }
-
-    public Order getMainDishOrder() {
-        Map<String, Integer> extractedOrderContent = this.orders.stream()
-                .filter(order -> order.menu().getClassification() == MenuClassification.MAIN)
-                .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
-        return new Order(extractedOrderContent);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Order compareTarget)) {
@@ -114,5 +100,19 @@ public class Order {
     @Override
     public String toString() {
         return this.orders.toString();
+    }
+
+    public Order getDessertOrder() {
+        Map<String, Integer> extractedOrderContent = this.orders.stream()
+                .filter(order -> order.menu().getClassification() == MenuClassification.DESSERT)
+                .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
+        return new Order(extractedOrderContent);
+    }
+
+    public Order getMainDishOrder() {
+        Map<String, Integer> extractedOrderContent = this.orders.stream()
+                .filter(order -> order.menu().getClassification() == MenuClassification.MAIN)
+                .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
+        return new Order(extractedOrderContent);
     }
 }
