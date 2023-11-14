@@ -50,4 +50,8 @@ public enum MenuList {
     public static boolean containsGivenName(String name) {
         return NAME_MENU_DICT.containsKey(name);
     }
+
+    public static MenuList getMenuByName(String name) {
+        return NAME_MENU_DICT.get(name);
+    }
 }
