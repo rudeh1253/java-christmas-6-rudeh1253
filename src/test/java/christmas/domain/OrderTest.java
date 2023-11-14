@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -119,5 +120,79 @@ class OrderTest {
     @ParameterizedTest
     void calculateOrderAmount(TestCaseForOrder testCase) {
         assertThat(new Order(testCase.testCase()).calculateOrderAmount()).isEqualTo(testCase.expected());
+    }
+
+//    @DisplayName("디저트 메뉴만 얻어낸다.")
+
+    static Stream<List<Order>> equals_NotEqual() {
+        List<Order> case1 = List.of(
+                new Order(Map.of(
+                        "양송이수프", 1
+                )),
+                new Order(Map.of(
+                        "양송이수프", 2
+                ))
+        );
+        List<Order> case2 = List.of(
+                new Order(Map.of(
+                        "양송이수프", 1
+                )),
+                new Order(Map.of(
+                        "양송이수프", 1, "시저샐러드", 1
+                ))
+        );
+        List<Order> case3 = List.of(
+                new Order(Map.of(
+                        "양송이수프", 2, "시저샐러드", 1
+                )),
+                new Order(Map.of(
+                        "시저샐러드", 2, "양송이수프", 1
+                ))
+        );
+        return Stream.of(case1, case2, case3);
+    }
+
+    @DisplayName("두 주문이 똑같은 메뉴, 똑같은 개별 메뉴 개수를 가지고 있지 않다면 false를 반환. equals 연산은 교환법칙 성립")
+    @MethodSource
+    @ParameterizedTest
+    void equals_NotEqual(List<Order> toCompare) {
+        assertThat(toCompare.get(0)).isNotEqualTo(toCompare.get(1));
+        assertThat(toCompare.get(1)).isNotEqualTo(toCompare.get(0));
+    }
+
+    static Stream<List<Order>> equals_Equal() {
+        List<Order> case1 = List.of(
+                new Order(Map.of(
+                        "양송이수프", 1
+                )),
+                new Order(Map.of(
+                        "양송이수프", 1
+                ))
+        );
+        List<Order> case2 = List.of(
+                new Order(Map.of(
+                        "양송이수프", 1, "시저샐러드", 1
+                )),
+                new Order(Map.of(
+                        "양송이수프", 1, "시저샐러드", 1
+                ))
+        );
+        List<Order> case3 = List.of(
+                new Order(Map.of(
+                        "양송이수프", 2, "시저샐러드", 1
+                )),
+                new Order(Map.of(
+                        "시저샐러드", 1, "양송이수프", 2
+                ))
+        );
+        return Stream.of(case1, case2, case3);
+    }
+
+    @DisplayName("두 주문이 똑같은 메뉴, 똑같은 개별 메뉴 개수를 가지고 있다면 true를 반환. equals 연산은 교환법칙 성립")
+    @MethodSource
+    @ParameterizedTest
+    void equals_Equal(List<Order> toCompare) {
+        assertThat(toCompare.get(0)).isEqualTo(toCompare.get(1));
+        assertThat(toCompare.get(1)).isEqualTo(toCompare.get(0));
     }
 }

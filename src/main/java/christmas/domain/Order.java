@@ -7,12 +7,26 @@ import christmas.validation.OrderValidator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Order {
     private final Set<SingleOrder> orders;
     private final OrderValidator validator;
 
     private record SingleOrder(Menu menu, int quantity, MenuClassification menuClassification) {
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof SingleOrder compareTarget)) {
+                return false;
+            }
+            return this.menu == compareTarget.menu() && this.quantity == compareTarget.quantity();
+        }
+
+        @Override
+        public int hashCode() {
+            return this.menu().hashCode() + quantity;
+        }
     }
 
     public Order(Map<String, Integer> orders) {
@@ -67,5 +81,38 @@ public class Order {
         return this.orders.stream()
                 .mapToInt(singleOrder -> singleOrder.menu().getPrice() * singleOrder.quantity())
                 .sum();
+    }
+
+    public Order getDessertOrder() {
+        Map<String, Integer> extractedOrderContent = this.orders.stream()
+                .filter(order -> order.menu().getClassification() == MenuClassification.DESSERT)
+                .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
+        return new Order(extractedOrderContent);
+    }
+
+    public Order getMainDishOrder() {
+        Map<String, Integer> extractedOrderContent = this.orders.stream()
+                .filter(order -> order.menu().getClassification() == MenuClassification.MAIN)
+                .collect(Collectors.toMap(order -> order.menu().getName(), SingleOrder::quantity));
+        return new Order(extractedOrderContent);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Order compareTarget)) {
+            return false;
+        }
+        return this.orders.containsAll(compareTarget.orders)
+                && compareTarget.orders.containsAll(this.orders);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.orders.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.orders.toString();
     }
 }
