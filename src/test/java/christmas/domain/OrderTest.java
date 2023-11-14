@@ -90,20 +90,34 @@ class OrderTest {
                 .isThrownBy(() -> new Order(orderContent));
     }
 
-    record TestCaseForTotalQuantity(Map<String, Integer> testCase, int expected) {
+    record TestCaseForOrder(Map<String, Integer> testCase, int expected) {
     }
 
-    static Stream<TestCaseForTotalQuantity> getTotalOrderQuantity() {
+    static Stream<TestCaseForOrder> getTotalOrderQuantity() {
         return Stream.of(
-                new TestCaseForTotalQuantity(Map.of("양송이수프", 1, "타파스", 2, "바비큐립", 3), 6),
-                new TestCaseForTotalQuantity(Map.of("양송이수프", 5, "타파스", 7, "샴페인", 2), 14)
+                new TestCaseForOrder(Map.of("양송이수프", 1, "타파스", 2, "바비큐립", 3), 6),
+                new TestCaseForOrder(Map.of("양송이수프", 5, "타파스", 7, "샴페인", 2), 14)
         );
     }
 
     @DisplayName("주문 개수의 총합을 구한다.")
     @MethodSource
     @ParameterizedTest
-    void getTotalOrderQuantity(TestCaseForTotalQuantity testCase) {
-        assertThat(new Order(testCase.testCase).getTotalOrderQuantity()).isEqualTo(testCase.expected);
+    void getTotalOrderQuantity(TestCaseForOrder testCase) {
+        assertThat(new Order(testCase.testCase()).getTotalOrderQuantity()).isEqualTo(testCase.expected());
+    }
+
+    static Stream<TestCaseForOrder> calculateOrderAmount() {
+        return Stream.of(
+                new TestCaseForOrder(Map.of("양송이수프", 1, "타파스", 2, "바비큐립", 3), 179000),
+                new TestCaseForOrder(Map.of("시저샐러드", 2, "해산물파스타", 5, "레드와인", 2), 311000)
+        );
+    }
+
+    @DisplayName("할인 전 주문 금액을 계산한다.")
+    @MethodSource
+    @ParameterizedTest
+    void calculateOrderAmount(TestCaseForOrder testCase) {
+        assertThat(new Order(testCase.testCase()).calculateOrderAmount()).isEqualTo(testCase.expected());
     }
 }

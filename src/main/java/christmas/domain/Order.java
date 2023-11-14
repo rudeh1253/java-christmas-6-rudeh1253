@@ -62,4 +62,10 @@ public class Order {
     public int getTotalOrderQuantity() {
         return this.orders.stream().mapToInt(SingleOrder::quantity).sum();
     }
+
+    public int calculateOrderAmount() {
+        return this.orders.stream()
+                .mapToInt(singleOrder -> singleOrder.menu().getPrice() * singleOrder.quantity())
+                .sum();
+    }
 }
