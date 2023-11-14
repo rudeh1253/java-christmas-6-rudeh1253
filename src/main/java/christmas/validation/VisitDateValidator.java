@@ -1,13 +1,13 @@
 package christmas.validation;
 
-import christmas.domain.config.DateConfig;
+import christmas.domain.config.VisitDateConfig;
 import christmas.error.ErrorMessage;
 import christmas.error.ErrorMessageFormatter;
 
-public class DateValidator {
-    private static final DateValidator SINGLETON = new DateValidator();
+public class VisitDateValidator {
+    private static final VisitDateValidator SINGLETON = new VisitDateValidator();
 
-    public static DateValidator getInstance() {
+    public static VisitDateValidator getInstance() {
         return SINGLETON;
     }
 
@@ -22,10 +22,10 @@ public class DateValidator {
     }
 
     private boolean isEqualOrLargerThanMin(int date) {
-        return date >= DateConfig.DATE_MIN.get();
+        return date >= VisitDateConfig.DATE_MIN;
     }
 
     private boolean isEqualOrSmallerThanMax(int date) {
-        return date <= DateConfig.DATE_MAX.get();
+        return date <= VisitDateConfig.DATE_MAX;
     }
 }

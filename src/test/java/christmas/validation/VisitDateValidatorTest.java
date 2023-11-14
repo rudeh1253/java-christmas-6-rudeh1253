@@ -9,8 +9,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class DateValidatorTest {
-    private DateValidator validator = DateValidator.getInstance();
+class VisitDateValidatorTest {
+    private VisitDateValidator validator = VisitDateValidator.getInstance();
 
     @DisplayName("날짜가 1~31에 해당하지 않을 경우 예외 발생 - IllegalArgumentException")
     @ValueSource(ints = { 32, 0, -1, Integer.MIN_VALUE, Integer.MAX_VALUE })
