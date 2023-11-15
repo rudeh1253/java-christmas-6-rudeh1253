@@ -31,7 +31,7 @@ class EventBadgeTest {
     @MethodSource
     @ParameterizedTest
     void getBadgeByOrderAmount(TestCase testCase) {
-        assertThat(EventBadge.getBadgeByOrderAmount(testCase.benefitAmount()))
+        assertThat(EventBadge.getBadgeByBenefitAmount(testCase.benefitAmount()))
                 .isEqualTo(testCase.expected());
     }
 }

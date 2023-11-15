@@ -2,6 +2,7 @@ package christmas.view;
 
 import static christmas.view.config.OutputConfig.ASK_MENU_AND_NUMBER;
 import static christmas.view.config.OutputConfig.ASK_VISIT_DATE;
+import static christmas.view.config.OutputConfig.BENEFIT_LIST;
 import static christmas.view.config.OutputConfig.CHRISTMAS_D_DAY_DISCOUNT;
 import static christmas.view.config.OutputConfig.DECEMBER_EVENT_BADGE;
 import static christmas.view.config.OutputConfig.EXPECTED_TOTAL_COST;
@@ -11,7 +12,6 @@ import static christmas.view.config.OutputConfig.GIVEAWAY_MENU;
 import static christmas.view.config.OutputConfig.NONE;
 import static christmas.view.config.OutputConfig.ORDER_AMOUNT_BEFORE_DISCOUNT;
 import static christmas.view.config.OutputConfig.ORDER_MENU;
-import static christmas.view.config.OutputConfig.BENEFIT_LIST;
 import static christmas.view.config.OutputConfig.PROGRAM_START_MESSAGE;
 import static christmas.view.config.OutputConfig.RESULT_TITLE;
 import static christmas.view.config.OutputConfig.SPECIAL_DISCOUNT;
@@ -19,9 +19,7 @@ import static christmas.view.config.OutputConfig.TOTAL_BENEFIT;
 import static christmas.view.config.OutputConfig.WEEKDAY_DISCOUNT;
 import static christmas.view.config.OutputConfig.WEEKEND_DISCOUNT;
 
-import christmas.domain.Order;
 import christmas.domain.VisitDate;
-import christmas.domain.benefit.Benefit;
 import christmas.domain.benefit.Discount;
 import christmas.domain.config.benefit.BenefitConfig;
 import christmas.util.StringFormatter;

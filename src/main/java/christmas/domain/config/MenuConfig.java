@@ -1,5 +1,8 @@
 package christmas.domain.config;
 
+/**
+ * 메뉴에 관련된 상수를 모아 놓은 설정 클래스.
+ */
 public class MenuConfig {
     public static final String MENU_INPUT_REGEX = "^[ㄱ-ㅎ가-힣]+-[0-9]+$";
     public static final String MENU_DELIMITER = ",";

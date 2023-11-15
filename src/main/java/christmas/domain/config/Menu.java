@@ -3,6 +3,9 @@ package christmas.domain.config;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 메뉴를 담고 있는 enum.
+ */
 public enum Menu {
     BUTTON_MUSHROOM_SOUP("양송이수프", 6000, MenuClassification.APPETIZER),
     TAPAS("타파스", 5500, MenuClassification.APPETIZER),
@@ -47,10 +50,20 @@ public enum Menu {
         return this.classification;
     }
 
+    /**
+     * 주어진 이름을 가진 메뉴가 존재하는지 반환한다.
+     * @param name 메뉴 이름.
+     * @return name에 해당하는 메뉴가 존재하면 true, 그렇지 않으면 false를 반환한다.
+     */
     public static boolean containsGivenName(String name) {
         return NAME_MENU_DICT.containsKey(name);
     }
 
+    /**
+     * 메뉴 이름으로부터 Menu 인스턴스를 찾아 반환한다.
+     * @param name 메뉴 이름.
+     * @return name에 해당하는 Menu 인스턴스.
+     */
     public static Menu getMenuByName(String name) {
         return NAME_MENU_DICT.get(name);
     }

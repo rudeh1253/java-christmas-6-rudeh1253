@@ -3,7 +3,6 @@ package christmas.domain;
 import christmas.domain.benefit.Benefit;
 import christmas.domain.benefit.Discount;
 import christmas.domain.config.EventBadge;
-import christmas.domain.config.Menu;
 import christmas.domain.config.benefit.BenefitConfig;
 
 import java.util.Map;
@@ -39,7 +38,7 @@ public class Result {
     }
 
     public boolean isQualifiedForGiveaway() {
-        return this.benefit.isQualifiedForGiveaway();
+        return this.benefit.isGiveawayGiven();
     }
 
     public Discount getDiscount() {
@@ -55,6 +54,6 @@ public class Result {
     }
 
     public EventBadge getEventBadge() {
-        return EventBadge.getBadgeByOrderAmount(this.order.calculateOrderAmount());
+        return EventBadge.getBadgeByBenefitAmount(this.order.calculateOrderAmount());
     }
 }

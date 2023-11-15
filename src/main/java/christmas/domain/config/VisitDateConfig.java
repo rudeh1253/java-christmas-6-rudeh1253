@@ -4,6 +4,9 @@ import java.time.DayOfWeek;
 import java.time.Month;
 import java.util.Set;
 
+/**
+ * 날짜에 관련된 상수를 모아 놓은 설정 클래스.
+ */
 public class VisitDateConfig {
     public static final int DATE_MIN = 1;
     public static final int DATE_MAX = 31;

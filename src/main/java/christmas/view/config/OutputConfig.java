@@ -1,5 +1,8 @@
 package christmas.view.config;
 
+/**
+ * 출력과 관련된 상수들이 담긴 설정 enum.
+ */
 public enum OutputConfig {
     PROGRAM_START_MESSAGE("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다."),
     ASK_VISIT_DATE("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)"),
